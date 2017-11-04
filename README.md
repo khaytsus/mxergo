@@ -36,12 +36,12 @@ First thing to do is run xinput to get the devices on your system, for example I
 
 ⎜   ↳ Logitech MX Ergo                          id=17   [slave  pointer  (2)]
 
-So from this, I know I need to modify device 17.  I then need to see what the default properties are so I can make adjustments from there.  There are quite a few properties, I'm only showing the ones I care about.
+So from this, I know I need to modify device 17.  I then need to see what the default properties are so I can make adjustments from there.  There are quite a few properties, I'm only showing the ones I care about.  Run this in your shell
 
- # xinput --list-props 17 'Coordinate Transformation Matrix'
+<pre><code># xinput --list-props 17 'Coordinate Transformation Matrix'
 Device 'Logitech MX Ergo':  
         Coordinate Transformation Matrix (155): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.400000  
-        libinput Accel Speed (291):     -0.300000
+        libinput Accel Speed (291):     -0.300000</code></pre>
 
 So for this, you can see the I have the speed set to 0.4 and acceleration set to -0.3.  I don't recall the original values but I suggest you don't just use my values and look at yours first to make sure you're using proper starting values.  I do this in my mousespeed.sh script.
 
