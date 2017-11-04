@@ -34,7 +34,7 @@ Note that acceleration affects how much the pointer increases speed over time an
 
 First thing to do is run xinput to get the devices on your system, for example I get a list but all I care about is the MX Ergo
 
-⎜   ↳ Logitech MX Ergo                          id=17   [slave  pointer  (2)]
+<pre><code>⎜   ↳ Logitech MX Ergo                          id=17   [slave  pointer  (2)]</code></pre>
 
 So from this, I know I need to modify device 17.  I then need to see what the default properties are so I can make adjustments from there.  There are quite a few properties, I'm only showing the ones I care about.  Run this in your shell
 
