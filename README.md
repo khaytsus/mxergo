@@ -28,7 +28,7 @@ Most distributions should package these, but you might need to install them.
     * This is a X11 utility provided in the xorg-x11-server-utils package on Fedora, I can not speak for other distros.  This might be installed by default in most distros
 
 ### Speed and Acceleration
-Using xinput I set my acceleration to -0.3 to give me just a slight amount of acceleration without being annoying.  -1 is no acceleration, 0 is middle, 1 is maximum.  I'm sure there are numbers that can be put on this range but just remember that -1 is off, 1 is max.  The other thing I set I also can't really explain very well but it is a coordinate system associated with the device which you should get the defaults then adjust the last number to increase the mouse pointer speed.  0 is quite slow, but starting anything above zero (such as 0.1) is the fastest and as you make the number larger from there the mouse speed decreases.
+Using xinput I set my acceleration to -0.3 to give me just a slight amount of acceleration without being annoying.  -1 is no acceleration, 0 is middle, 1 is maximum.  I'm sure there is some mathematical description for how much acceleration each value provides in this range but just remember that -1 is off, 1 is max.  The other thing I set I also can't really explain very well but it is a coordinate system associated with the device which you should get the defaults then adjust the last number to increase the mouse pointer speed.  0 is quite slow, but starting anything above zero (such as 0.1) is the fastest and as you make the number larger from there the mouse speed decreases.
 
 Note that acceleration affects how much the pointer increases speed over time and speed is the raw speed.  I prefer a combination, but I hate too much acceleration as it makes the pointer too twitchy.
 
@@ -38,9 +38,9 @@ First thing to do is run xinput to get the devices on your system, for example I
 
 So from this, I know I need to modify device 17.  I then need to see what the default properties are so I can make adjustments from there.  There are quite a few properties, I'm only showing the ones I care about.
 
-# xinput --list-props 17 'Coordinate Transformation Matrix'
-Device 'Logitech MX Ergo':
-        Coordinate Transformation Matrix (155): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.400000
+ # xinput --list-props 17 'Coordinate Transformation Matrix'
+Device 'Logitech MX Ergo':  
+        Coordinate Transformation Matrix (155): 1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 0.400000  
         libinput Accel Speed (291):     -0.300000
 
 So for this, you can see the I have the speed set to 0.4 and acceleration set to -0.3.  I don't recall the original values but I suggest you don't just use my values and look at yours first to make sure you're using proper starting values.  I do this in my mousespeed.sh script.
