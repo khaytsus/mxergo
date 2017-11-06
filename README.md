@@ -12,7 +12,7 @@ Note that I use XFCE and X11.  If you use Wayland you might need to use differen
 
 ### How I use the MX Ergo
 I currently have it set up in the following way
-  * Up button cycles through Chrome windows (see chrome-activate.sh below)
+  * Up button cycles through Chrome windows (see win-activate.sh below)
   * Down button is TBD, I haven't yet decided what I want to attach to it.
   * Left/right tilt on scroll wheel moves my mouse cursor to the next monitor
     * If I'm on monitor one, it will go to monitor three, or three to one, etc
@@ -55,8 +55,8 @@ This really depends on your desktop environment, but for XFCE it's in the Keyboa
 
 ### Scripts I execute with the mouse
 
-#### chrome-activate.sh
-This script finds my Chrome browser and cycles through the windows.  I often have 3-4 windows and rather than alt-tab through them trying to find the correct one I have assigned the top/up button on the mouse to do it.  Only caveat is you can't click super fast, wait a short period (100ms is likely fine) between clicks.  This script also moves the mouse to my middle monitor if it's not already there.  Again; this is very specific to my environment but if it's useful to you it can easily be modified for your setup.
+#### win-activate.sh
+This script finds the window name that is passed in and cycles through the windows.  I often have 3-4 windows in Chrome open and rather than alt-tab through them trying to find the correct one I have assigned the top/up button on the mouse to do it.  This script also moves the mouse to the middle of the window if it's not already inside of the window.  This script will work for any application on any desktop or monitor.
 
 #### movemouse.sh
 This script is specifically designed for my setup, but if you use multiple monitors it might still be useful to you but you'll need to adjust the values for your monitors which are all specific to mine.  But my setup is documented at the top and in the script it also explains a bit of what's going on so it shouldn't be hard to update.  But basically if you pass 1, 2, or 3 it goes to the respective monitor.  I have this assigned to Control 1, 2, or 3 which moves the mouse to the respective monitor but I don't use this much anymore.  Now I primarily use right/left, which is passed in when I click the mouse scroll wheel right or left.
