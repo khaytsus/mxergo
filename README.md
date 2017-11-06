@@ -8,7 +8,7 @@ First off, I'll describe my setup here so the scripts make more sense.  I have 3
 
 I run terminals on the left, Chrome on the middle, and some amateur radio stuff on the right monitors and I'm often switching back and forth.  I used do this by keyboard but now I can do it using the mouse much faster, thanks to the tilt buttons on the MX Ergo.
 
-Note that I use XFCE and X11.  If you use Wayland you might need to use different tools.
+Note that I use XFCE and X11.  If you use Wayland you might need to use different tools.  Also one more thing of note; if you want to get battery notifications for your mouse and your DE isn't providing them you can see if the Solaar package is available for your distro.
 
 ### How I use the MX Ergo
 I currently have it set up in the following way
