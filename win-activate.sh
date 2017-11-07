@@ -52,7 +52,7 @@ if [ ${move} -eq 1 ]; then
     newmousex=$(((windowwidth/2)+windowleft))
     newmousey=$(((windowheight/2)+windowtop))
     echo "Moving mouse to ${newmousex},${newmousey}"
-    xdotool mousemove ${newmousex} ${newmousey}
+    xdotool mousemove --sync ${newmousex} ${newmousey}
     # Small work-around to make sure mousemove works
     xdotool mousemove_relative 1 1
 fi
