@@ -43,7 +43,7 @@ echo "monitor: [$monitor] arg: $arg"
 
 case $arg in
 [1]*)
-  xdotool mousemove --sync 1920 600
+  xdotool mousemove --sync 1900 200
   xdotool mousemove_relative 1 1
   ;;
 [2]*)
@@ -51,7 +51,7 @@ case $arg in
   xdotool mousemove_relative 1 1
   ;;
 [3]*)
-  xdotool mousemove --sync 8500 1100    # 1.5 scaled in xrandr
+  xdotool mousemove --sync 8540 1070    # 1.5 scaled in xrandr
   xdotool mousemove_relative 1 1
   ;;
 esac

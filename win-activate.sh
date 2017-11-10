@@ -54,5 +54,5 @@ if [ ${move} -eq 1 ]; then
     echo "Moving mouse to ${newmousex},${newmousey}"
     xdotool mousemove --sync ${newmousex} ${newmousey}
     # Small work-around to make sure mousemove works
-    xdotool mousemove_relative 1 1
+    xdotool mousemove_relative --sync 1 1
 fi
