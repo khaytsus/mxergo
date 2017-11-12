@@ -12,6 +12,11 @@
 #  mail - For sending mail on the local machine to notify on low battery
 #  curl - For using a URL for notification of low battery
 
+# TODO
+#  Historical log
+#   Keep 'history' out of the vars file and instead log separately
+#   Could potentially write something to estimate battery life based on data in log
+
 # You must create this file with your personal settings in it, an example file
 # is provided.  Make sure the name is as below, or update the file path below.
 settingsfile="${HOME}/.mousebatt.settings"
@@ -24,6 +29,9 @@ else
     exit
 fi
 
+# If you want to maintain a log file, perhaps to do analysis on, set this variable
+logfile="${HOME}/.mousebatt.log"
+
 # This file persists some data.  Currently only NOTIFIED is really used but in the
 # future we could do cool stuff with the dates or collect other data.  This file
 # will be created if it does not exist.
@@ -32,6 +40,7 @@ datafile="${HOME}/.mousebatt.vars"
 LASTFULLDATE=""
 LASTLOWDATE=""
 CURRENTLEVEL=""
+LASTKNOWNLEVEL=""
 CURRENTDATE=""
 NOTIFIED=0
 
@@ -44,9 +53,22 @@ writedata () {
 echo "export LASTFULLDATE=\"${LASTFULLDATE}\"" >${datafile}
 echo "export LASTLOWDATE=\"${LASTLOWDATE}\"" >>${datafile}
 echo "export CURRENTLEVEL=\"${CURRENTLEVEL}\"" >>${datafile}
+echo "export LASTKNOWNLEVEL=\"${LASTKNOWNLEVEL}\"" >>${datafile}
 echo "export CURRENTDATE=\"${CURRENTDATE}\"" >>${datafile}
 echo "export NOTIFIED=\"${NOTIFIED}\"" >>${datafile}
 }
+
+# Log historical data to a file for future analysis
+logdata () {
+    if [ "${logfile}" != "" ]; then
+        epoch=`date +"%s"`
+        line="${CURRENTDATE},${epoch},${CURRENTLEVEL}"
+        echo ${line} >> ${logfile}
+    fi
+}
+
+# Set current date
+CURRENTDATE=`date`
 
 # Get the current battery percentage info from solaar
 battery=`solaar show "${device}" | grep Battery | cut -f 2 -d ":"`
@@ -54,13 +76,14 @@ battery=`solaar show "${device}" | grep Battery | cut -f 2 -d ":"`
 # If we see discharging, get the current percent
 if [[ ${battery} =~ ^.*discharging.*$ ]]; then
     CURRENTLEVEL=`echo ${battery} | cut -f 1 -d "," | sed -e 's/[\ \%]//g'`
+    LASTKNOWNLEVEL=${CURRENTLEVEL}
+    logdata
 fi
 
 # If it's unknown, it likely means it's offline and we can't do much
 if [[ ${battery} =~ ^.*unknown.*$ ]]; then
     echo "Device is offline"
     CURRENTLEVEL="Offline"
-    CURRENTDATE=`date`
     writedata
     exit
 fi
@@ -103,9 +126,6 @@ fi
 if [ ${CURRENTLEVEL} -eq 100 ]; then
     LASTFULLDATE=`date`
 fi
-
-# Set current date
-CURRENTDATE=`date`
 
 echo "Current batttery percent: ${CURRENTLEVEL}%"
 
