@@ -1,14 +1,14 @@
 MX Ergo scripts for Linux
 ================
 
-This is a set of scripts and configurations for making good use of an MX Ergo mouse from Logitech in Linux.  These are personalized for me but might be useful information to other people.
+This is a set of scripts and configurations for making good use of an MX Ergo mouse from Logitech in Linux.  So far I've found no functional differences between using the Unifying Receiver and Bluetooth except that I have not found a method to retrieve the battery level when using the device over bluetooth.  These are personalized for me but might be useful information to other people.
 
 ### My Setup
 First off, I'll describe my setup here so the scripts make more sense.  I have 3 monitors, one is 3840x2160, two is 2880x1620, three is 2880x1800.  Without going into too much detail, one is a 4k monitor and the other two are 2k monitors scaled up by 1.5 using xrandr so resolution etc is reasonable across all three monitors.  
 
 I run terminals on the left, Chrome on the middle, and some amateur radio stuff on the right monitors and I'm often switching back and forth.  I used do this by keyboard but now I can do it using the mouse much faster, thanks to the tilt buttons on the MX Ergo.
 
-Note that I use XFCE and X11.  If you use Wayland you might need to use different tools.  Also one more thing of note; if you want to get battery notifications for your mouse and your DE isn't providing them you can see if the Solaar package is available for your distro.
+Note that I use XFCE and X11.  If you use Wayland you might need to use different tools.  Also one more thing of note; if you're using the Logitech Unifying Receiver and want to get battery notifications for your mouse and your DE isn't providing them you can see if the Solaar package is available for your distro.  If you're using bluetooth I offhand don't know how to get the battery status.
 
 ### How I use the MX Ergo
 I currently have it set up in the following way

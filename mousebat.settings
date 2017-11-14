@@ -1,0 +1,14 @@
+# What level you want to be warned.  Rechargable I wouldn't go below 40%, alkaline you
+# can go lower.
+export minbatt="40"
+
+# Device you want to monitor, solaar show will show all of them
+export device="MX Ergo"
+
+# If you want an email, set this.  The script uses the 'mail' command to send email and assumes
+# your local machine can send mail.  If not, you'll need to make adjustments
+export notifyemail="user@domain.com"
+
+# If you want to call a URL for notification, you can set that here.  Uses curl
+export urldevice=`echo ${device} | sed -e 's/\ /%20/g'` # Convert spaces to %20 for url
+export notifyurl="https://domain.com/something.php?message=${urldevice}%20battery%20low"

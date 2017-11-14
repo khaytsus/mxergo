@@ -6,6 +6,7 @@
 # you'll be reminded once a day if the battery is still low.
 
 # Requirements
+#  Using Unifying Receiver
 #  solaar - For reading battery levels
 
 # Optional Requirements
