@@ -51,12 +51,12 @@ fi
 
 # Write data to file
 writedata () {
-echo "export LASTFULLDATE=\"${LASTFULLDATE}\"" >${datafile}
-echo "export LASTLOWDATE=\"${LASTLOWDATE}\"" >>${datafile}
-echo "export CURRENTLEVEL=\"${CURRENTLEVEL}\"" >>${datafile}
-echo "export LASTKNOWNLEVEL=\"${LASTKNOWNLEVEL}\"" >>${datafile}
-echo "export CURRENTDATE=\"${CURRENTDATE}\"" >>${datafile}
-echo "export NOTIFIED=\"${NOTIFIED}\"" >>${datafile}
+    echo "export LASTFULLDATE=\"${LASTFULLDATE}\"" >${datafile}
+    echo "export LASTLOWDATE=\"${LASTLOWDATE}\"" >>${datafile}
+    echo "export CURRENTLEVEL=\"${CURRENTLEVEL}\"" >>${datafile}
+    echo "export LASTKNOWNLEVEL=\"${LASTKNOWNLEVEL}\"" >>${datafile}
+    echo "export CURRENTDATE=\"${CURRENTDATE}\"" >>${datafile}
+    echo "export NOTIFIED=\"${NOTIFIED}\"" >>${datafile}
 }
 
 # Log historical data to a file for future analysis
@@ -87,6 +87,23 @@ if [[ ${battery} =~ ^.*unknown.*$ ]]; then
     CURRENTLEVEL="Offline"
     writedata
     exit
+fi
+
+# If it's recharging we don't know the leve, it shows 0% 
+if [[ ${battery} =~ ^.*recharging.*$ ]]; then
+    echo "Device is recharging"
+    CURRENTLEVEL="NA"
+    writedata
+    exit
+fi
+
+# If it shows full, log it
+if [[ ${battery} =~ ^.*full.*$ ]]; then
+    echo "Device is full."
+    LASTFULLDATE=`date`
+    CURRENTLEVEL="100"
+    LASTKNOWNLEVEL=${CURRENTLEVEL}
+    logdata
 fi
 
 # If we're below the threshold, test if we should notify
@@ -128,6 +145,6 @@ if [ ${CURRENTLEVEL} -eq 100 ]; then
     LASTFULLDATE=`date`
 fi
 
-echo "Current batttery percent: ${CURRENTLEVEL}%"
+echo "Current battery percent: ${CURRENTLEVEL}%"
 
 writedata
