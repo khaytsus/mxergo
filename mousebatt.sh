@@ -17,6 +17,7 @@
 #  Historical log
 #   Keep 'history' out of the vars file and instead log separately
 #   Could potentially write something to estimate battery life based on data in log
+#  Re-notify after N days/hours
 
 # You must create this file with your personal settings in it, an example file
 # is provided.  Make sure the name is as below, or update the file path below.
@@ -74,14 +75,7 @@ CURRENTDATE=`date`
 # Get the current battery percentage info from solaar
 battery=`solaar show "${device}" | grep Battery | cut -f 2 -d ":"`
 
-# If we see discharging, get the current percent
-if [[ ${battery} =~ ^.*discharging.*$ ]]; then
-    CURRENTLEVEL=`echo ${battery} | cut -f 1 -d "," | sed -e 's/[\ \%]//g'`
-    LASTKNOWNLEVEL=${CURRENTLEVEL}
-    logdata
-fi
-
-# If it's unknown, it likely means it's offline and we can't do much
+# If it's unknown, it likely means it's offline and we can't do much; exit
 if [[ ${battery} =~ ^.*unknown.*$ ]]; then
     echo "Device is offline"
     CURRENTLEVEL="Offline"
@@ -89,12 +83,19 @@ if [[ ${battery} =~ ^.*unknown.*$ ]]; then
     exit
 fi
 
-# If it's recharging we don't know the leve, it shows 0% 
+# If it's recharging we don't know the level, it shows 0%; exit
 if [[ ${battery} =~ ^.*recharging.*$ ]]; then
     echo "Device is recharging"
     CURRENTLEVEL="NA"
     writedata
     exit
+fi
+
+# If we see discharging, get the current percent
+if [[ ${battery} =~ ^.*discharging.*$ ]]; then
+    CURRENTLEVEL=`echo ${battery} | cut -f 1 -d "," | sed -e 's/[\ \%]//g'`
+    LASTKNOWNLEVEL=${CURRENTLEVEL}
+    logdata
 fi
 
 # If it shows full, log it
@@ -138,11 +139,6 @@ if [ ${CURRENTLEVEL} -le ${minbatt} ]; then
 else
     # If we're above the threshold, set NOTIFIED to 0
     NOTIFIED=0
-fi
-
-# If the battery is full, set the last full date
-if [ ${CURRENTLEVEL} -eq 100 ]; then
-    LASTFULLDATE=`date`
 fi
 
 echo "Current battery percent: ${CURRENTLEVEL}%"
